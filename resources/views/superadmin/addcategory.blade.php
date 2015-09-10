@@ -21,6 +21,8 @@ Add, Delete Job Category
         <br>
         {!! Form::submit('Add Category',['class'=>'btn btn-primary']) !!}
         {!! Form::close() !!}
+
+
         <br>
         <h3>Added Categories</h3>
         <table class="table table-hover table-bordered">

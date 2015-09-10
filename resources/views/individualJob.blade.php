@@ -18,6 +18,12 @@ Job Information
         <div class="col-md-12">
             <h4>Job Information</h4>
             <h5>Job Posted On: <strong>{{$data->created_at}}</strong>&nbsp;&nbsp;&nbsp;Job Deadline: <strong>{{$data->job_end_date}}</strong></h5>
+            @if(Session::get('data'))
+                <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{Session::get('data')}}</strong>
+                </div>
+            @endif
         </div>
     </div>
     <hr>
@@ -54,7 +60,7 @@ Job Information
     <br>
     @if(!Auth::check())
         <div class="text-center">
-        <a href="" class="btn btn-lg btn-success">Apply Now</a>
+        <a href="{{URL::to('job/apply/'.$data->lid)}}" class="btn btn-lg btn-success">Apply Now</a>
         </div>
         <br> <br>
         @endif

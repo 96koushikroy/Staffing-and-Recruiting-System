@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Applicant;
 use App\JobCategory;
 use App\JobType;
 use App\Listing;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
@@ -316,8 +318,67 @@ public function ActivateJob($lid){
 }
     public function getJobApplyPage($lid){
         $page = Listing::where('lid','=',$lid)->first();
-        return view('JobApply',['data'=>$page]);
+        $app_id = uniqid();
+        return view('JobApply',['appid'=>$app_id,'data'=>$page]);
     }
+
+    public function postJobApplyPage($lid){
+        $aid = Input::get('aid');
+        $name=Input::get('name');
+        $email = Input::get('email');
+        $check = Applicant::where('email','=',$email)->where('lid','=',$lid)->count();
+        if($check>0){
+            Session::flash('data','Sorry. You have already applied for this position. Please check your application using your application ID.');
+        return redirect()->back();
+        }
+
+        $skill1=Input::get('skill1');
+        $skill2=Input::get('skill2');
+        $skill3=Input::get('skill3');
+        $skill4=Input::get('skill4');
+        $skill5=Input::get('skill5');
+        $skill6=Input::get('skill6');
+        if (Input::hasFile('image1')) {
+            //return 2;
+            $extension1 = Input::file('image1')->getClientOriginalExtension();
+            if ($extension1 == 'pdf' || $extension1 == 'PDF' || $extension1 == 'Pdf' || $extension1 == 'pDf' || $extension1 == 'pdF') {
+                $date = uniqid() . 'pid';
+                $fname = $date . '.' . $extension1;
+                $destinationPath = 'resumes/';
+                Input::file('image1')->move($destinationPath, $fname);
+                $final1 = 'company_images/' . $fname;
+            } else {
+                Session::flash('data', 'File Upload Problem. Check Input File Format. Only PDF supported for now.');
+                return redirect()->back()->withInput();
+            }
+        } else {
+            $final1 = '';
+        }
+
+        $cover = Input::get('cover');
+
+
+        $d = new Applicant;
+        $d->lid = $lid;
+        $d->aid=$aid;
+        $d->name=$name;
+        $d->email=$email;
+        $d->resume_link=$final1;
+        $d->skills_1=$skill1;
+        $d->skills_2=$skill2;
+        $d->skills_3=$skill3;
+        $d->skills_4=$skill4;
+        $d->skills_5=$skill5;
+        $d->skills_6=$skill6;
+        $d->cover_letter=$cover;
+        $d->save();
+
+        Session::flash('data','Applied Successfully. Please Check Your Application Status From the following Link using this App ID:'.$aid);
+        return redirect('job/'.$lid);
+
+
+    }
+
 
 }
 function priv(){

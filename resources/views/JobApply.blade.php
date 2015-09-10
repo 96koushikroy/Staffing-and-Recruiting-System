@@ -23,6 +23,12 @@ Apply For Job
                 <div class="col-md-12">
                     <h4>Job Information</h4>
                     <h5>Job Posted On: <strong>{{$data->created_at}}</strong>&nbsp;&nbsp;&nbsp;Job Deadline: <strong>{{$data->job_end_date}}</strong></h5>
+                    @if(Session::get('data'))
+                        <div class="alert alert-dismissible alert-info">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>{{Session::get('data')}}</strong>
+                        </div>
+                    @endif
                 </div>
             </div>
             <hr>
@@ -45,6 +51,8 @@ Apply For Job
                 <div class="col-md-6">
                     <h5><u>Enter Information Below To Apply</u></h5>
 {!! Form::open(['files'=>'true']) !!}
+                    <p>Application Checking ID: <strong>{{$appid}}</strong>. Save it to check your application status.</p>
+                    {!! Form::hidden('aid',$appid) !!}
                     Name:  {!! Form::text('name','',['class'=>'form-control','placeholder'=>'Enter Your Full Name']) !!}
                     <br>
                     Email: {!! Form::text('email','',['class'=>'form-control','placeholder'=>'Enter Your Email Address']) !!}
@@ -72,7 +80,7 @@ Apply For Job
                     </div>
                     <br>
                     Upload Your Resume:
-                    {!! Form::file('resume') !!}
+                    {!! Form::file('image1') !!}
                     <br>
                     Cover Letter:
                     <textarea class="form-control" id="cover" name="cover"></textarea>
