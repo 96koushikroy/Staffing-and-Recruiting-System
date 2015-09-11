@@ -21,12 +21,12 @@ Job Listings
                     <div class="col-md-5">
                         <h5>Position: <strong>{{$d->position}}</strong></h5>
                         <p>Job Nature: <strong>{{$d->job_type}}</strong>, Job Category: <strong>{{$d->category}}</strong></p>
-                        <p>Pay&nbsp;Range:&nbsp;<strong>${{$d->payment_range}}</strong>&nbsp;&nbsp;&nbsp;Pay&nbsp;Type:&nbsp;<strong>{{$d->pay_type}}</strong></p>
+                        <p>Pay&nbsp;Range:&nbsp;<strong>{{$d->payment_range}}</strong>&nbsp;&nbsp;&nbsp;Pay&nbsp;Type:&nbsp;<strong>{{$d->pay_type}}</strong></p>
                     </div>
                     <div class="col-md-7">
                         <br>
                         <a href="{{URL::to('job/'.$d->lid)}}" target="_blank" class="btn btn-primary">View Job</a>&nbsp;&nbsp;
-                        <a href="" class="btn btn-primary">View Applicants</a>&nbsp;&nbsp;
+                        <a href="{{URL::to('my-listings/applicants/'.$d->lid)}}" class="btn btn-primary">View Applicants</a>&nbsp;&nbsp;
                         <a href="" class="btn btn-primary">Edit Job</a>&nbsp;&nbsp;
                         <a href="{{URL::to('job/delete/'.$d->lid)}}" class="btn btn-danger">Delete Job</a>&nbsp;&nbsp;
                         @if($d->status == 1)

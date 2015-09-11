@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class ListingController extends Controller
 {
@@ -347,7 +348,7 @@ public function ActivateJob($lid){
                 $fname = $date . '.' . $extension1;
                 $destinationPath = 'resumes/';
                 Input::file('image1')->move($destinationPath, $fname);
-                $final1 = 'company_images/' . $fname;
+                $final1 = 'resumes/' . $fname;
             } else {
                 Session::flash('data', 'File Upload Problem. Check Input File Format. Only PDF supported for now.');
                 return redirect()->back()->withInput();
@@ -374,7 +375,7 @@ public function ActivateJob($lid){
         $d->cover_letter=$cover;
         $d->save();
 
-        Session::flash('data','Applied Successfully. Please Check Your Application Status From the following Link using this App ID:'.$aid);
+        Session::flash('data','Applied Successfully. Please Check Your Application Status From '.URL::to('application-check').' using this App ID:'.$aid);
         return redirect('job/'.$lid);
 
 
@@ -394,6 +395,23 @@ public function ActivateJob($lid){
         else{
             Session::flash('data','We didnot Find any result for this ID.');
           return  redirect()->back();
+        }
+    }
+
+    public function getApplicants($lid){
+        if(Auth::check()){
+            if(priv() == 1){
+                $data = Applicant::where('lid','=',$lid)->get();
+                return view('superadmin.viewApplicants',['data'=>$data,'lid'=>$lid]);
+            }
+            else{
+                Session::flash('data','Access Denied! You are trying to access a secured route.');
+                return   redirect('dashboard');
+            }
+        }
+        else{
+            Session::flash('data','Please Login to Continue.');
+            return   redirect('/');
         }
     }
 
