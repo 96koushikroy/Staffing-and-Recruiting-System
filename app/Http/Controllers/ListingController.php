@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Applicant;
+use App\CompanyInfo;
 use App\JobCategory;
 use App\JobType;
 use App\Listing;
@@ -377,6 +378,23 @@ public function ActivateJob($lid){
         return redirect('job/'.$lid);
 
 
+    }
+    public function checkApplication(){
+        $aa = CompanyInfo::where('id','=',1)->first();
+      return view('employee.checkApplication',['data'=>$aa]);
+    }
+    public function postCheckApplication(){
+
+        $da = Input::get('aid');
+        $cc = Applicant::where('aid','=',$da)->count();
+        if($cc>0){
+            $data = Applicant::where('aid','=',$da)->first();
+            return view('employee.checkApplicationResult',['d'=>$data]);
+        }
+        else{
+            Session::flash('data','We didnot Find any result for this ID.');
+          return  redirect()->back();
+        }
     }
 
 

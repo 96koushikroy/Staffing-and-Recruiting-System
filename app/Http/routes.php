@@ -38,3 +38,5 @@ Route::get('job/deactivate/{lid}','ListingController@deActivateJob');
 Route::get('job/activate/{lid}','ListingController@ActivateJob');
 Route::get('job/apply/{lid}','ListingController@getJobApplyPage');
 Route::post('job/apply/{lid}','ListingController@postJobApplyPage');
+Route::get('application-check','ListingController@checkApplication');
+Route::post('application-check','ListingController@postCheckApplication');
