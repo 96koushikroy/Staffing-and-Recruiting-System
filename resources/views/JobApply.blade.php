@@ -60,22 +60,34 @@ Apply For Job
                     Attaining Skills(Maximum 6 Skills Needed):
                     <div class="row">
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill1" placeholder="Skill 1">
+                            @if($data->skills_1 != '')<strong>{{$data->skills_1}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill1" value="{{$data->skills_1}}" >
+                                @endif
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill2" placeholder="Skill 2">
+                            @if($data->skills_2 != '')<strong>{{$data->skills_2}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill2" value="{{$data->skills_2}}">
+                                @endif
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill3" placeholder="Skill 3">
+                            @if($data->skills_3 != '')<strong>{{$data->skills_3}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill3" value="{{$data->skills_3}}">
+                                @endif
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill4" placeholder="Skill 4">
+                            @if($data->skills_4 != '')<strong>{{$data->skills_4}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill4" value="{{$data->skills_4}}">
+                                @endif
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill5" placeholder="Skill 5">
+                            @if($data->skills_5 != '')<strong>{{$data->skills_5}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill5" value="{{$data->skills_5}}">
+                                @endif
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="typeahead form-control" name="skill6" placeholder="Skill 6">
+                            @if($data->skills_6 != '')<strong>{{$data->skills_6}}</strong><br>
+                            <input type="checkbox" class="form-control" name="skill6" value="{{$data->skills_6}}">
+                                @endif
                         </div>
                     </div>
                     <br>
