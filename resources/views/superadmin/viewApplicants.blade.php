@@ -15,6 +15,7 @@ Showing Applicants for Job ID: {{$lid}}
                     <th>Name</th>
                     <th>Email</th>
                     <th>Date Applied</th>
+                    <th>No. of Matched Skills</th>
                     <th>Cover Letter</th>
                     <th>View More</th>
                 </tr>
@@ -25,6 +26,7 @@ Showing Applicants for Job ID: {{$lid}}
                     <td>{{$d->name}}</td>
                     <td>{{$d->email}}</td>
                     <td>{{$d->created_at}}</td>
+                    <td>{{$d->skill_count}}</td>
                    <td> <a href="#{{$d->aid}}" class="btn btn-lg btn-primary" data-toggle="modal">View Cover Letter</a>
 
                     <div id="{{$d->aid}}" class="modal fade">
@@ -44,7 +46,7 @@ Showing Applicants for Job ID: {{$lid}}
                             </div>
                         </div>
                     </div></td>
-                    <td><a href="" class="btn btn-primary">View Applicant</a></td>
+                    <td><a href="{{URL::to('my-listings/applicants/'.$d->lid.'/'.$d->aid)}}" class="btn btn-primary">View Applicant</a></td>
                 </tr>
             @endforeach
             </tbody>

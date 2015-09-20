@@ -372,6 +372,7 @@ public function ActivateJob($lid){
         $d->skills_4=$skill4;
         $d->skills_5=$skill5;
         $d->skills_6=$skill6;
+        $d->skill_count=Input::get('scount');
         $d->cover_letter=$cover;
         $d->save();
 
@@ -401,8 +402,26 @@ public function ActivateJob($lid){
     public function getApplicants($lid){
         if(Auth::check()){
             if(priv() == 1){
-                $data = Applicant::where('lid','=',$lid)->get();
+                $data = Applicant::where('lid','=',$lid)->orderBy('skill_count','Desc')->get();
                 return view('superadmin.viewApplicants',['data'=>$data,'lid'=>$lid]);
+            }
+            else{
+                Session::flash('data','Access Denied! You are trying to access a secured route.');
+                return   redirect('dashboard');
+            }
+        }
+        else{
+            Session::flash('data','Please Login to Continue.');
+            return   redirect('/');
+        }
+    }
+
+    public function getIndividualApplicants($lid,$uid){
+        if(Auth::check()){
+            if(priv() == 1){
+                $data = Applicant::where('lid','=',$lid)->where('aid','=',$uid)->first();
+                Applicant::where('lid','=',$lid)->where('aid','=',$uid)->update(['status'=>'Viewed']);
+                return view('superadmin.checkApplicationResult',['d'=>$data,'lid'=>$lid]);
             }
             else{
                 Session::flash('data','Access Denied! You are trying to access a secured route.');

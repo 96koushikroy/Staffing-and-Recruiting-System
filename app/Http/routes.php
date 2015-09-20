@@ -41,3 +41,4 @@ Route::post('job/apply/{lid}','ListingController@postJobApplyPage');
 Route::get('application-check','ListingController@checkApplication');
 Route::post('application-check','ListingController@postCheckApplication');
 Route::get('my-listings/applicants/{lid}','ListingController@getApplicants');
+Route::get('my-listings/applicants/{lid}/{uid}','ListingController@getIndividualApplicants');

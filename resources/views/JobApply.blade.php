@@ -90,6 +90,7 @@ Apply For Job
                                 @endif
                         </div>
                     </div>
+                    <input type="hidden" id="texens" name="scount" value="0" />
                     <br>
                     Upload Your Resume:
                     {!! Form::file('image1') !!}
@@ -108,10 +109,12 @@ Apply For Job
     @endif
     <script>
         $(document).ready(function() {
-         /*   $('input.typeahead').typeahead({
-                name: 'accounts',
-                local:
-        });*/
+            var count = 0;
+            $(':checkbox').change(function() {
+                count  = document.querySelectorAll('input[type="checkbox"]:checked').length - 1;
+                $("#texens").val(count);
+            });
+
             $('#cover').summernote({
                 height: 200});
 
