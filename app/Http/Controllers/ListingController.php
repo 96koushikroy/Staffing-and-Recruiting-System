@@ -8,6 +8,7 @@ use App\JobCategory;
 use App\JobType;
 use App\Listing;
 use App\PayType;
+use App\Shortlist;
 use App\Skills;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 
@@ -432,6 +434,45 @@ public function ActivateJob($lid){
             Session::flash('data','Please Login to Continue.');
             return   redirect('/');
         }
+    }
+
+    public function shortlistApplicant($lid,$uid){
+        if(Auth::check()){
+            if(priv() == 1){
+                $c = Shortlist::where('lid','=',$lid)->where('uid','=',$uid)->count();
+                if($c == 0){
+                $data = new Shortlist;
+                $data ->uid = $uid;
+                $data->lid = $lid;
+                $data->save();
+                Applicant::where('lid','=',$lid)->where('aid','=',$uid)->update(['status'=>'Short-listed']);
+                Session::flash('data','Applicant was Short-listed.');
+                }
+                else{
+                    Session::flash('data','Applicant is already Short-listed.');
+                }
+                return redirect()->back();
+            }
+            else{
+                Session::flash('data','Access Denied! You are trying to access a secured route.');
+                return   redirect('dashboard');
+            }
+        }
+        else{
+            Session::flash('data','Please Login to Continue.');
+            return   redirect('/');
+        }
+    }
+
+    public function sendEmail(){
+        $email = Input::get('email');
+        $sub = Input::get('subject');
+        $body = Input::get('cover');
+
+
+        Session::flash('data','Email Sent!');
+        return   redirect()->back();
+
     }
 
 

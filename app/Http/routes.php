@@ -42,3 +42,5 @@ Route::get('application-check','ListingController@checkApplication');
 Route::post('application-check','ListingController@postCheckApplication');
 Route::get('my-listings/applicants/{lid}','ListingController@getApplicants');
 Route::get('my-listings/applicants/{lid}/{uid}','ListingController@getIndividualApplicants');
+Route::get('my-listings/applicants/shortlist/{lid}/{uid}','ListingController@shortlistApplicant');
+Route::post('send-email-to-applicant','ListingController@sendEmail');
