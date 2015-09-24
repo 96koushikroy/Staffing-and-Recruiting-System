@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{URL::to('/')}}/libraries/theme/bootstrap.css">
     <script src="{{URL::to('/')}}/libraries/theme/jquery.js"></script>
     <script src="{{URL::to('/')}}/libraries/theme/bootstrap.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     @yield('head')
 </head>
 <body>

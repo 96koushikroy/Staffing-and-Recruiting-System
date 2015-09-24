@@ -9,6 +9,8 @@ Showing Applicants for Job ID: {{$lid}}
 <div class="container">
     <div class="row text-center">
         <div class="col-md-12">
+            <h3>Showing Applicants for Job ID: {{$lid}}</h3>
+            <hr>
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>

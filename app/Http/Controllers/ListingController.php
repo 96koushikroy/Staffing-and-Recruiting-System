@@ -16,6 +16,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -266,6 +267,7 @@ class ListingController extends Controller
 
     public function showIndividualJobPage($lid){
         $page = Listing::where('lid','=',$lid)->first();
+        $pp=Listing::where('lid','=',$lid)->increment('views',1);
         return view('individualJob',['data'=>$page]);
     }
 
@@ -473,6 +475,27 @@ public function ActivateJob($lid){
         Session::flash('data','Email Sent!');
         return   redirect()->back();
 
+    }
+
+    public function getShortlistApplicants($lid){
+//return 1;
+        if(Auth::check()){
+            if(priv() == 1){
+               $data = DB::table('shortlist')->join('applicants','applicants.aid','=','shortlist.uid')
+                   ->select('applicants.name','applicants.email','applicants.lid','applicants.created_at','applicants.aid','applicants.cover_letter','applicants.skill_count')
+                   ->where('applicants.lid','=',$lid)->get();
+               // return $data;
+                return view('superadmin.viewShortlist',['data'=>$data,'lid'=>$lid]);
+            }
+            else{
+                Session::flash('data','Access Denied! You are trying to access a secured route.');
+                return   redirect('dashboard');
+            }
+        }
+        else{
+            Session::flash('data','Please Login to Continue.');
+            return   redirect('/');
+        }
     }
 
 
