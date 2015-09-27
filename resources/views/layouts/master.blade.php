@@ -38,6 +38,7 @@
                                 <li><a href="{{URL::to('add-pay-type')}}">Pay Type</a></li>
                                 <li><a href="{{URL::to('add-listing')}}">Add Job Listing</a></li>
                                 <li><a href="{{URL::to('my-listings')}}">My Job Listing</a></li>
+                                <li><a href="{{URL::to('add-department')}}">Departments</a></li>
                                 <li><a href="{{URL::to('logout')}}">Logout</a></li>
                             </ul>
                         </li>

@@ -29,6 +29,10 @@ Route::get('add-pay-type','ListingController@getAddPayType');
 Route::post('add-pay-type','ListingController@postAddPayType');
 Route::get('add-pay-type/delete/{id}','ListingController@deletePayType');
 
+Route::get('add-department','HRController@getAddDept');
+Route::post('add-department','HRController@postAddDept');
+Route::get('add-department/delete/{id}','HRController@deleteDept');
+
 Route::get('add-listing','ListingController@getAddListing');
 Route::post('add-listing','ListingController@postAddListing');
 Route::get('my-listings','ListingController@getAllListing');
