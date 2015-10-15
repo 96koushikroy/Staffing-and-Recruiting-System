@@ -54,9 +54,9 @@ return [
 
         'mysql' => [
             'driver'    => 'mysql',
-            'host'      => '127.0.0.1',
+            'host'      => '103.10.54.99',
             'database'  => 'soft_sr',
-            'username'  => 'root',
+            'username'  => 'softtask',
             'password'  => 'Qwert3201',
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
