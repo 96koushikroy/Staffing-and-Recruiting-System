@@ -344,8 +344,8 @@ public function ActivateJob($lid){
         $skill4=Input::get('skill4');
         $skill5=Input::get('skill5');
         $skill6=Input::get('skill6');
+
         if (Input::hasFile('image1')) {
-            //return 2;
             $extension1 = Input::file('image1')->getClientOriginalExtension();
             if ($extension1 == 'pdf' || $extension1 == 'PDF' || $extension1 == 'Pdf' || $extension1 == 'pDf' || $extension1 == 'pdF') {
                 $date = uniqid() . 'pid';
@@ -484,7 +484,6 @@ public function ActivateJob($lid){
                $data = DB::table('shortlist')->join('applicants','applicants.aid','=','shortlist.uid')
                    ->select('applicants.name','applicants.email','applicants.lid','applicants.created_at','applicants.aid','applicants.cover_letter','applicants.skill_count')
                    ->where('applicants.lid','=',$lid)->get();
-               // return $data;
                 return view('superadmin.viewShortlist',['data'=>$data,'lid'=>$lid]);
             }
             else{
